@@ -23,6 +23,7 @@ type Parser struct {
 func newParser(params *params) (g *Parser) {
 	g = new(Parser)
 	g.vm = new(vm.VM)
+	g.params = params
 	g.options = []expr.Option{
 		expr.AllowUndefinedVariables(),
 		expr.Function(funcFile, g.file),
@@ -43,7 +44,7 @@ func (p *Parser) Parse(key string) (value string) {
 	if got := env.Get(key); "" != strings.TrimSpace(got) {
 		value = got
 	}
-	if got := p.eval(value); "" != strings.TrimSpace(got) {
+	if got := p.eval(key); "" != strings.TrimSpace(got) {
 		value = got
 	}
 	if "" == value { // 如果环境变量取值没有改变，证明键没有环境变量，需要将键值赋值
@@ -57,11 +58,6 @@ func (p *Parser) Parse(key string) (value string) {
 		value = p.fixJsonArray(value)
 	} else {
 		value = p.expr(value)
-	}
-
-	// 如果没有一点变化，证明没有任何配置，返回空值
-	if value == key {
-		value = ""
 	}
 
 	return
