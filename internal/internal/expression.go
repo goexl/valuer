@@ -1,4 +1,4 @@
-package core
+package internal
 
 type Expression interface {
 	// Name 名称

@@ -4,6 +4,7 @@ import (
 	"github.com/goexl/http"
 	"github.com/goexl/log"
 	"github.com/goexl/valuer/internal/core"
+	"github.com/goexl/valuer/internal/internal"
 	"github.com/goexl/valuer/internal/param"
 )
 
@@ -17,7 +18,7 @@ func NewParser() *Parser {
 	}
 }
 
-func (p *Parser) Expression(expression core.Expression) (builder *Parser) {
+func (p *Parser) Expression(expression internal.Expression) (builder *Parser) {
 	p.params.Expressions = append(p.params.Expressions, expression)
 	builder = p
 
