@@ -3,7 +3,7 @@ module github.com/goexl/valuer
 go 1.21
 
 require (
-	github.com/antonmedv/expr v1.15.4
+	github.com/antonmedv/expr v1.15.5
 	github.com/drone/envsubst v1.0.3
 	github.com/goexl/env v0.0.2
 	github.com/goexl/exc v0.0.5
