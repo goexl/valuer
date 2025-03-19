@@ -4,7 +4,7 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/goexl/exc"
+	"github.com/goexl/exception"
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
 )
@@ -12,7 +12,7 @@ import (
 func (p *Parser) file(args ...any) (result any, err error) {
 	name := ""
 	if 0 == len(args) {
-		err = exc.NewField("必须传入参数", field.New("args", args))
+		err = exception.New().Message("必须传入参数").Field(field.New("args", args)).Build()
 	} else {
 		name = gox.ToString(args[0])
 	}
@@ -36,10 +36,10 @@ func (p *Parser) file(args ...any) (result any, err error) {
 func (p *Parser) url(args ...any) (result any, err error) {
 	url := ""
 	if 0 == len(args) {
-		err = exc.NewField("必须传入参数", field.New("args", args))
+		err = exception.New().Message("必须传入参数").Field(field.New("args", args)).Build()
 	} else {
 		url = gox.ToString(args[0])
-		err = gox.If(p.isHttp(url), exc.NewField("必须是URL地址", field.New("url", url)))
+		err = gox.If(p.isHttp(url), exception.New().Message("必须是URL地址").Field(field.New("url", url))).Build()
 	}
 	if nil != err {
 		return
@@ -66,7 +66,11 @@ func (p *Parser) url(args ...any) (result any, err error) {
 
 func (p *Parser) match(args ...any) (result any, err error) {
 	if 2 != len(args) {
-		err = exc.NewFields("参数错误", field.New("args", args), field.New("need", 2), field.New("real", 1))
+		err = exception.New().Message("参数错误").Field(
+			field.New("args", args),
+			field.New("need", 2),
+			field.New("real", 1),
+		).Build()
 	}
 	if nil != err {
 		return
