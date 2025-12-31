@@ -24,10 +24,10 @@ func (p *Parser) file(args ...any) (result any, err error) {
 		field.New("filename", name),
 	}
 	if bytes, re := os.ReadFile(name); nil != re {
-		p.params.Logger.Error("读取文件出错", fields.Add(field.Error(re))...)
+		p.params.Logger.Error("读取文件出错", field.Error(re), fields...)
 	} else {
 		result = string(bytes)
-		p.params.Logger.Debug("读取文件成功", fields.Add(field.New("content", result))...)
+		p.params.Logger.Debug("读取文件成功", field.New("content", result), fields...)
 	}
 
 	return
@@ -49,16 +49,14 @@ func (p *Parser) url(args ...any) (result any, err error) {
 		field.New("url", url),
 	}
 	if rsp, re := p.params.Http.R().Get(url); nil != re {
-		p.params.Logger.Error("读取端点出错", fields.Add(field.Error(re))...)
+		p.params.Logger.Error("读取端点出错", field.Error(re), fields...)
 	} else if rsp.IsError() {
-		httpFields := gox.Fields[any]{
-			field.New("code", rsp.StatusCode()),
-			field.New("body", rsp.Body()),
-		}
-		p.params.Logger.Warn("远端服务器返回错误", fields.Add(httpFields...)...)
+		codeField := field.New("code", rsp.StatusCode())
+		bodyField := field.New("body", rsp.Body())
+		p.params.Logger.Warn("远端服务器返回错误", codeField, fields.Add(bodyField)...)
 	} else {
 		result = string(rsp.Body())
-		p.params.Logger.Debug("读取端点成功", fields.Add(field.New("content", result))...)
+		p.params.Logger.Debug("读取端点成功", field.New("content", result), fields...)
 	}
 
 	return

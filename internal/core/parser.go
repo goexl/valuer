@@ -70,13 +70,13 @@ func (p *Parser) expr(from string) (to string) {
 	}
 	if program, ce := expr.Compile(from, p.options...); nil != ce {
 		to = from
-		p.params.Logger.Debug("表达式编译出错", fields.Add(field.Error(ce))...)
+		p.params.Logger.Debug("表达式编译出错", field.Error(ce), fields...)
 	} else if result, re := p.vm.Run(program, nil); nil != re {
 		to = from
-		p.params.Logger.Debug("表达式运算出错", fields.Add(field.Error(re))...)
+		p.params.Logger.Debug("表达式运算出错", field.Error(re), fields...)
 	} else {
 		to = gox.ToString(result)
-		p.params.Logger.Debug("表达式运算成功", fields.Add(field.New("result", to))...)
+		p.params.Logger.Debug("表达式运算成功", field.New("result", to), fields...)
 	}
 
 	return
