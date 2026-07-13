@@ -8,7 +8,7 @@ require (
 	github.com/goexl/env v0.0.2
 	github.com/goexl/exception v0.0.4
 	github.com/goexl/gox v1.9.2
-	github.com/goexl/http v0.3.1
+	github.com/goexl/http v0.3.2
 	github.com/goexl/log v0.1.0
 )
 
