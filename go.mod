@@ -8,7 +8,7 @@ require (
 	github.com/goexl/env v0.0.2
 	github.com/goexl/exception v0.0.4
 	github.com/goexl/gox v1.9.2
-	github.com/goexl/http v0.3.2
+	github.com/goexl/http v0.3.4
 	github.com/goexl/log v0.1.0
 )
 
@@ -16,5 +16,5 @@ require (
 	github.com/go-resty/resty/v2 v2.17.2 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/rs/xid v1.6.0 // indirect
-	golang.org/x/net v0.52.0 // indirect
+	golang.org/x/net v0.57.0 // indirect
 )
